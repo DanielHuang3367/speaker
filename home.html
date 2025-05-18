@@ -49,7 +49,9 @@
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'zh-CN';
-                window.speechSynthesis.speak(utterance);
+                while (true) {
+                    window.speechSynthesis.speak(utterance);
+                }
             } else {
                 alert('您的浏览器不支持文本朗读功能，请使用Chrome或Edge等现代浏览器');
             }
