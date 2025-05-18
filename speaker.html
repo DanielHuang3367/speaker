@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本朗读器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        #inputText {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            min-height: 50px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>文本朗读器</h1>
+    <label for="inputText"></label><input type="text" id="inputText" placeholder="请输入要朗读的文本">
+    <button onclick="speakText()">朗读文本</button>
+    <div id="output">这里将显示您输入的文本</div>
+
+    <script>
+        function speakText() {
+            const text = document.getElementById('inputText').value;
+            const outputDiv = document.getElementById('output');
+
+            // 显示文本
+            outputDiv.textContent = text;
+
+            // 朗读文本
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN'; // 设置中文语音
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('您的浏览器不支持文本朗读功能，请使用Chrome或Edge等现代浏览器');
+            }
+        }
+    </script>
+</body>
+</html>
