@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speaker</title>
+    <title>Text Reader</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,11 +20,15 @@
         }
         button {
             padding: 10px 20px;
+            margin: 5px;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
             font-size: 16px;
+        }
+        #repeatBtn {
+            background-color: #f39c12;
         }
         #output {
             margin-top: 20px;
@@ -33,27 +37,64 @@
             min-height: 50px;
             font-size: 18px;
         }
+        #status {
+            margin-top: 10px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
-    <h1>Speaker</h1>
-    <label for="inputText"></label><input type="text" id="inputText" placeholder="请输入要朗读的文本">
-    <button onclick="speakText()">Speak</button>
+    <h1>Text Reader</h1>
+    <label for="inputText"></label><input type="text" id="inputText" placeholder="Enter Your Text Here">
+    <button onclick="speakText()">Read</button>
+    <button id="repeatBtn" onclick="toggleRepeat()">Open Repeat</button>
     <div id="output">Your text will be shown here</div>
+    <div id="status">Now:Read Once</div>
 
     <script>
+        let repeatMode = false;
+        let repeatInterval;
+        let currentText = '';
+
         function speakText() {
-            const text = document.getElementById('inputText').value;
+            currentText = document.getElementById('inputText').value;
             const outputDiv = document.getElementById('output');
-            outputDiv.textContent = text;
+            outputDiv.textContent = currentText;
+            if(repeatInterval) {
+                clearInterval(repeatInterval);
+            }
             if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
+                const utterance = new SpeechSynthesisUtterance(currentText);
                 utterance.lang = 'zh-CN';
-                while (true) {
-                    window.speechSynthesis.speak(utterance);
+                window.speechSynthesis.speak(utterance);
+                if(repeatMode) {
+                    repeatInterval = setInterval(() => {
+                        window.speechSynthesis.speak(new SpeechSynthesisUtterance(currentText));
+                    }, 2000);
                 }
             } else {
-                alert('您的浏览器不支持文本朗读功能，请使用Chrome或Edge等现代浏览器');
+                alert('Error:Can\'t read your text');
+            }
+        }
+
+        function toggleRepeat() {
+            repeatMode = !repeatMode;
+            const btn = document.getElementById('repeatBtn');
+            const status = document.getElementById('status');
+            if(repeatMode) {
+                btn.textContent = 'Turn Off Repeat';
+                btn.style.backgroundColor = '#e74c3c';
+                status.textContent = 'Now:Repeat';
+                if(currentText) {
+                    speakText();
+                }
+            } else {
+                btn.textContent = 'Open Repeat';
+                btn.style.backgroundColor = '#f39c12';
+                status.textContent = 'Now:Read Once';
+                if(repeatInterval) {
+                    clearInterval(repeatInterval);
+                }
             }
         }
     </script>
