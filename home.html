@@ -64,7 +64,11 @@
             if (password === rightPassword) {
                 speakText();
             } else {
-                alert('Wrong Password!');
+                if (password === '') {
+                    alert('Please Enter The Password!');
+                } else {
+                    alert('Wrong Password!');
+                }
             }
         }
 
