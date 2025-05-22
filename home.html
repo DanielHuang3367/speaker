@@ -1,67 +1,52 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-">
-    <meta name="viewport" content="width=device-width, initial-scale=.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Reader</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 0px;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 5px;
+            padding: 20px;
             text-align: center;
-            background-color: #fff; /* 添加背景色 */
-        }
-        h1 {
-            color: #0210ff; /* 修改标题颜色 */
         }
         #inputText {
-            width: 0%;
-            padding: 3px;
-            margin: 5px 0;
-            font-size: 15px;
-            border: 1px solid #ccc; /* 添加边框 */
-            border-radius: 5px; /* 添加圆角 */
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
         }
         button {
-            padding: 3px 5px;
+            padding: 10px 20px;
             margin: 5px;
-            background-color: #4CAF;
+            background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
             font-size: 16px;
-            border-radius: 5px; /* 添加圆角 */
-            transition: background-color 3s; /* 添加过渡效果 */
-        }
-        button:hover {
-            background-color: #fff246; /* 鼠标悬停时改变背景色 */
         }
         #repeatBtn {
-            background-color: #f9c;
+            background-color: #f39c12;
         }
         #output {
-            margin-top: 5px;
-            padding: 5px;
+            margin-top: 20px;
+            padding: 15px;
             border: 1px solid #ddd;
-            min-height: 15px;
-            font-size: 15px;
-            background-color: #fff; /* 添加背景色 */
-            border-radius: 5px; /* 添加圆角 */
+            min-height: 50px;
+            font-size: 18px;
         }
         #status {
-            margin-top: 5px;
-            color: #ff574f;
-            font-size: 15px;
+            margin-top: 10px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <h>Text Reader</h>
-    <label for="inputText"></label>
-    <input type="text" id="inputText" placeholder="Enter Your Text Here">
-    <button onclick="promptForPasswordAndSpeak()">Read</button>
+    <h1>Text Reader</h1>
+    <label for="inputText"></label><input type="text" id="inputText" placeholder="Enter Your Text Here">
+    <button onclick="speakText()">Read</button>
     <button id="repeatBtn" onclick="toggleRepeat()">Open Repeat</button>
     <div id="output">Your text will be shown here</div>
     <div id="status">Now:Read Once</div>
@@ -71,34 +56,24 @@
         let repeatInterval;
         let currentText = '';
 
-        function promptForPasswordAndSpeak() {
-            const password = prompt("Enter The Password:");
-            const correctPassword = "Legendary x7 - Lisiyuan is a shabby and she don't have any progress";
-            if (password === correctPassword) {
-                speakText();
-            } else {
-                alert("密码错误！");
-            }
-        }
-
         function speakText() {
             currentText = document.getElementById('inputText').value;
             const outputDiv = document.getElementById('output');
             outputDiv.textContent = currentText;
-            if (repeatInterval) {
+            if(repeatInterval) {
                 clearInterval(repeatInterval);
             }
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(currentText);
                 utterance.lang = 'zh-CN';
                 window.speechSynthesis.speak(utterance);
-                if (repeatMode) {
+                if(repeatMode) {
                     repeatInterval = setInterval(() => {
                         window.speechSynthesis.speak(new SpeechSynthesisUtterance(currentText));
-                    }, );
+                    }, 2000);
                 }
             } else {
-                alert('Error: Can\'t read your text');
+                alert('Error:Can\'t read your text');
             }
         }
 
@@ -106,18 +81,18 @@
             repeatMode = !repeatMode;
             const btn = document.getElementById('repeatBtn');
             const status = document.getElementById('status');
-            if (repeatMode) {
+            if(repeatMode) {
                 btn.textContent = 'Turn Off Repeat';
-                btn.style.backgroundColor = '#e4c3c';
+                btn.style.backgroundColor = '#e74c3c';
                 status.textContent = 'Now:Repeat';
-                if (currentText) {
+                if(currentText) {
                     speakText();
                 }
             } else {
                 btn.textContent = 'Open Repeat';
-                btn.style.backgroundColor = '#f9c';
+                btn.style.backgroundColor = '#f39c12';
                 status.textContent = 'Now:Read Once';
-                if (repeatInterval) {
+                if(repeatInterval) {
                     clearInterval(repeatInterval);
                 }
             }
