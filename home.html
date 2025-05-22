@@ -46,7 +46,7 @@
 <body>
     <h1>Text Reader</h1>
     <label for="inputText"></label><input type="text" id="inputText" placeholder="Enter Your Text Here">
-    <button onclick="speakText()">Read</button>
+    <button onclick="checkAndSpeakText()">Read</button>
     <button id="repeatBtn" onclick="toggleRepeat()">Open Repeat</button>
     <div id="output">Your text will be shown here</div>
     <div id="status">Now:Read Once</div>
@@ -55,6 +55,17 @@
         let repeatMode = false;
         let repeatInterval;
         let currentText = '';
+
+        function checkAndSpeakText() {
+            const password = prompt('Enter Your Password Here');
+            const rightPassword = "Legendary x7 [X-Ray]";
+
+            if (password === rightPassword) {
+                speakText();
+            } else {
+                alert('Wrong Password!');
+            }
+        }
 
         function speakText() {
             currentText = document.getElementById('inputText').value;
