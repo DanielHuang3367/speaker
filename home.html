@@ -64,7 +64,7 @@
             fetch('text.txt')
                 .then(response => response.text())
                 .then(data => {
-                    rightPassword = data;
+                    rightPassword = data;//
                 });
 
             if (password === rightPassword) {
