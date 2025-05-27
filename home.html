@@ -67,6 +67,8 @@
                     rightPassword = data;//
                 });
 
+            document.getElementById('output').innerHTML += '<p>${rightPassword}</p>'
+
             if (password === rightPassword) {
                 speakText();
             } else {
