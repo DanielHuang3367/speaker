@@ -59,7 +59,17 @@
 
         function checkAndSpeakText() {
             const password = document.getElementById('passwordInput').value;
-            const rightPassword = "Legendary x7 [X-Ray] bruh";
+            let rightPassword = '';
+
+            fetch('text.txt')
+                .then(response => response.text())
+                .then(data => {
+                    rightPassword = data;
+                })
+                .catch(error => {
+                    console.error('读取文件出错:', error);
+                    document.getElementById('output').innerText = '无法加载文件内容';
+                });
 
             if (password === rightPassword) {
                 speakText();
