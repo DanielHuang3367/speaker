@@ -70,7 +70,9 @@
             const xhr = new XMLHttpRequest();
             xhr.open('GET', 'text.txt', true);
             xhr.onload = function() {
+                alert("onload status:" + xhr.status)
                 if (xhr.status === 200) {
+                    alert("text content:" + xhr.responseText)
                     console.log(xhr.responseText); // 输出文件内容
                     rightPassword = xhr.responseText;
                 }
