@@ -67,6 +67,10 @@
                     rightPassword = data;//
 
                     if (password === rightPassword) {
+                        if (password === '') {
+                            currentText = prompt('Enter Your Text:');
+                        }
+
                         speakText();
                     } else {
                         if (password === '') {
