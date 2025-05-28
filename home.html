@@ -59,12 +59,14 @@
 
         function checkAndSpeakText() {
             const password = document.getElementById('passwordInput').value;
-            let rightPassword = '';
+            var rightPassword = '';
 
             fetch('text.txt')
                 .then(response => response.text())
                 .then(data => {
+                    alert("fetch content:" + data)
                     rightPassword = data;//
+                    alert("fetch pw content:" + rightPassword)
                 });
 
             const xhr = new XMLHttpRequest();
@@ -73,7 +75,7 @@
                 alert("onload status:" + xhr.status)
                 if (xhr.status === 200) {
                     alert("text content:" + xhr.responseText)
-                    console.log(xhr.responseText); // 输出文件内容
+                    //console.log(xhr.responseText); // 输出文件内容
                     rightPassword = xhr.responseText;
                 }
             };
@@ -87,7 +89,7 @@
                 if (password === '') {
                     alert('Please Enter The Password!');
                 } else {
-                    alert('Wrong Password! - :' + password + "|" + rightPassword);
+                    alert('Wrong Password! - :' + password + "|" + rightPassword + "|" + xhr.responseText);
                 }
             }
         }
