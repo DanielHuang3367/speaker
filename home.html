@@ -61,12 +61,11 @@
             const password = document.getElementById('passwordInput').value;
             let rightPassword = '';
 
-            document.getElementById('output').innerHTML += '<p>${rightPassword}</p>'
-
             fetch('text.txt')
                 .then(response => response.text())
                 .then(data => {
                     rightPassword = data;//
+
                     if (password === rightPassword) {
                         speakText();
                     } else {
