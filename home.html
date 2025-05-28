@@ -67,15 +67,13 @@
                 .then(response => response.text())
                 .then(data => {
                     rightPassword = data;//
-                    //alert("fetch pp content:" + password)
-                    //alert("fetch pw content:" + rightPassword)
                     if (password === rightPassword) {
                         speakText();
                     } else {
                         if (password === '') {
                             alert('Please Enter The Password!');
                         } else {
-                            alert('Wrong Password! - :' + password + "|" + rightPassword);
+                            alert('Wrong Password!');
                         }
                     }
                 });
