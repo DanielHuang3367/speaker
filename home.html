@@ -64,7 +64,7 @@
             fetch('text.txt')
                 .then(response => response.text())
                 .then(data => {
-                    rightPassword = data;//
+                    rightPassword = data;
 
                     if (password === rightPassword) {
                         if (currentText === '') {
@@ -86,9 +86,11 @@
             currentText = document.getElementById('inputText').value;
             const outputDiv = document.getElementById('output');
             outputDiv.textContent = currentText;
+
             if(repeatInterval) {
                 clearInterval(repeatInterval);
             }
+
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(currentText);
                 utterance.lang = 'zh-CN';
