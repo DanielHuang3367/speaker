@@ -61,27 +61,30 @@
             const password = document.getElementById('passwordInput').value;
             var rightPassword = '';
 
+            document.getElementById('output').innerHTML += '<p>${rightPassword}</p>'
+
             fetch('text.txt')
                 .then(response => response.text())
                 .then(data => {
                     alert("fetch content:" + data)
                     rightPassword = data;//
+                    alert("fetch pp content:" + password)
                     alert("fetch pw content:" + rightPassword)
                 });
 
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'text.txt', true);
-            xhr.onload = function() {
-                alert("onload status:" + xhr.status)
-                if (xhr.status === 200) {
-                    alert("text content:" + xhr.responseText)
-                    //console.log(xhr.responseText); // 输出文件内容
-                    rightPassword = xhr.responseText;
-                }
-            };
-            xhr.send();
+            // const xhr = new XMLHttpRequest();
+            // xhr.open('GET', 'text.txt', true);
+            // xhr.onload = function() {
+            //     alert("onload status:" + xhr.status)
+            //     if (xhr.status === 200) {
+            //         //console.log(xhr.responseText); // 输出文件内容
+            //         rightPassword = xhr.responseText;
+            //         alert("text content:" + xhr.responseText)
+            //     }
+            // };
+            // xhr.send();
 
-            document.getElementById('output').innerHTML += '<p>${rightPassword}</p>'
+
 
             if (password === rightPassword) {
                 speakText();
