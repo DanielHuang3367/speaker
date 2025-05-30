@@ -55,7 +55,7 @@
     <script>
         let repeatMode = false;
         let repeatInterval;
-        let currentText = document.getElementById('inputText').value;
+        let currentText = '';
 
         function checkAndSpeakText() {
             const password = document.getElementById('passwordInput').value;
@@ -67,10 +67,6 @@
                     rightPassword = data;
 
                     if (password === rightPassword) {
-                        if (currentText === '') {
-                            document.getElementById('inputText').value = prompt('Enter Your Text:');
-                        }
-
                         speakText();
                     } else {
                         if (password === '') {
